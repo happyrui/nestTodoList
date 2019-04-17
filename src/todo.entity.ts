@@ -20,6 +20,7 @@ export class t_todo {
         length:200,
         name:"summary"
         })
+    // 这个字段就是输出给前端时的字段，在这里就可以写成 驼峰式的
     summary:string | null;
 
     // details
@@ -34,7 +35,14 @@ export class t_todo {
         nullable:true,
         name:"is_finished"
         })
-    isfinished:boolean | null;
+    is_finished:number | null;
+
+    // 是否已删除
+    @Column("int",{ 
+        nullable:true,
+        name:"is_del"
+        })
+    is_del:number | null;
 
     // 创建时间
     @Column("timestamp",{ 
@@ -42,7 +50,7 @@ export class t_todo {
         default: () => "CURRENT_TIMESTAMP",
         name:"create_time"
         })
-    create_time:Date | null;
+    createTime:Date | null;
         
     // 更新时间
     @Column("timestamp",{ 
@@ -50,6 +58,6 @@ export class t_todo {
         default: () => "CURRENT_TIMESTAMP",
         name:"update_time"
         })
-    update_time:Date | null;
+    updateTime:Date | null;
         
 }

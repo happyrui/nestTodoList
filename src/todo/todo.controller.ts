@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { todo, todoOne, todoList } from './todo.dto';
 
@@ -10,30 +10,38 @@ export class TodoController {
     ){}
     // 查全部
     @Get()
-    async getTodo(): Promise<todo[]> {
+    getTodo() {
         return this.todoService.getTodo();
     }
     
     // 查一个
     @Post('findDetailById')
-    async findOne(id: number): Promise<todo> {
+    findOne(@Body() id: number) {
         return this.todoService.findOne(id)
     }
     // 改
-    @Put('updateDetail')
-    async update(todo:todo): Promise<todo> {
+    @Post('update')
+    update(@Body() todo:todo) {
         return this.todoService.update(todo)
     }
 
     // 删
-    @Post('deleteOne')
-    async delete(id:number): Promise<todo> {
+    @Post('delete')
+    delete(@Body() id:number) {
         return this.todoService.delete(id)
     }
 
     // 增
-    @Post()
-    async create(todo: todo): Promise<todo> {
+    @Post('create')
+    create(@Body() todo: todo): Promise<todo> {
         return this.todoService.create(todo)
     }
+
+    //标记已完成
+    @Post('finish')
+    finish(@Body() id:number) {
+        return this.todoService.finish(id)
+    }
+
+
 }

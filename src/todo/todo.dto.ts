@@ -15,8 +15,8 @@ export class todoOne {
 export class todo {
     summary: string
     details?: string
-    create_time?: Date
-    is_finished?: boolean
+    is_finished?: number
+    is_del?: number
     id?: number
 }
 

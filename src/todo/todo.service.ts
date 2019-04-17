@@ -18,7 +18,7 @@ export class TodoService {
     }
     // 查一个
     async findOne(id: number): Promise<todo> {
-        return this.todoEntity.findOne({id:id})
+        return await this.todoEntity.findOne({id:id})
     }
     // 增
     async create(todo: todo): Promise<todo> {
@@ -28,22 +28,34 @@ export class TodoService {
     }
 
     //删
-    async delete(id:number): Promise<todo> {
-        const result = await this.todoEntity.findOne(id);
-        await this.todoEntity.createQueryBuilder()
-        .delete()
-        .where("id = :id", {id})
-        .execute();
-        return result
-      }
+    /**
+     * 真删除
+     */
+    async delete(id:number) {
+        return await this.todoEntity.delete(id);
+    }
+    /**
+     * 假删除
+     */
+    // async delete(id:number) {
+    //     await this.todoEntity.update(id, {is_del:1})
+    // }
 
     //改
-    async update(todo:todo): Promise<todo> {
-        await this.todoEntity.createQueryBuilder()
-        .update()
-        .set({...todo})
-        .where("id = :id", { id: todo.id })
-        .execute();
-        return await this.todoEntity.findOne({id:todo.id});
-      }
+    // async update(todo:todo): Promise<todo> {
+    //     await this.todoEntity.createQueryBuilder()
+    //     .update()
+    //     .set({...todo})
+    //     .where("id = :id", { id: todo.id })
+    //     .execute();
+    //     return await this.todoEntity.findOne({id:todo.id});
+    //  }
+    async update(todo: todo) {
+        return await this.todoEntity.update({id: todo.id}, {...todo})
+    }
+
+    // 标记为已完成
+    async finish(id:number) {
+        return await this.todoEntity.update(id, {is_finished:1})
+    }
 }
