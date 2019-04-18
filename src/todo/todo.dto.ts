@@ -22,6 +22,16 @@
 import { IsString, IsInt } from 'class-validator';
 
 export class todo {
+    
     @IsString()
-    readonly summary: string;
+    summary: string;
+
+    details: string;
+
+    is_finished: number;
+
+    is_del: number;
+
+    id: number;
+
 }
