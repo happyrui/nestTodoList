@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsController } from './cats/cats.controller';
@@ -8,6 +8,7 @@ import { TodoService } from './todo/todo.service';
 import { TodoController } from './todo/todo.controller';
 import { Connection } from 'typeorm';
 import { TodoModule } from './todo/todo.module';
+import { LoggerMiddleware } from './config';
 
 // @Module() 装饰器提供了元数据，Nest 用它来组织应用程序结构
 @Module({
@@ -18,6 +19,10 @@ import { TodoModule } from './todo/todo.module';
   controllers: [AppController, CatsController, TodoController],
   providers: [AppService, CatService, TodoService],
 })
-export class AppModule {
-  constructor(private readonly connection: Connection) {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('/todo');
+  }
 }
