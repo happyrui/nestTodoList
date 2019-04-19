@@ -3,9 +3,13 @@ import { Controller, Get, Post, Put, Body, Delete, Param } from '@nestjs/common'
 import { HttpException, HttpStatus, UseFilters } from '@nestjs/common';
 // 管道相关
 import { UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+// 文件上传
+import { UploadedFile, FileInterceptor, UseInterceptors } from '@nestjs/common';
 import { HttpExceptionFilter, ValidateException, ValidatePipe } from '../config';
 import { TodoService } from './todo.service';
 import { todo } from './todo.dto';
+import fs = require('fs');
+import path = require('path');
 
 @Controller('todo')
 // Exception1、作用于当前控制器路由的所有响应结果
@@ -70,8 +74,26 @@ export class TodoController {
     //标记已完成
     @Post('finish')
     finish(@Body() id:number) {
+        console.log('aaa');
         return this.todoService.finish(id)
     }
 
-
+    // 上传文件
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file'))
+    upload(@UploadedFile() file) {
+        console.log(file);
+        const storePath = path.join(__dirname, '../../files');
+        fs.existsSync(storePath) === false && this.mkdirs(storePath);
+        const resPath = path.join(storePath, file.originalname);
+        fs.writeFileSync(resPath, file.buffer);
+    }
+    // 判断文件夹是否已存在
+    mkdirs(dirpath) {
+        if (!fs.existsSync(path.dirname(dirpath))) {
+            this.mkdirs(path.dirname(dirpath));
+        }
+        fs.mkdirSync(dirpath);
+    }
+    
 }
