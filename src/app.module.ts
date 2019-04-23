@@ -1,6 +1,4 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CatsController } from './cats/cats.controller';
 import { CatService } from './cats/cats.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,8 +14,8 @@ import { LoggerMiddleware } from './config';
     TypeOrmModule.forRoot(),
     TodoModule
   ],
-  controllers: [AppController, CatsController, TodoController],
-  providers: [AppService, CatService, TodoService],
+  controllers: [ CatsController, TodoController],
+  providers: [ CatService, TodoService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
