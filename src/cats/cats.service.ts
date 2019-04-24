@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { Cat } from './interfaces/cat.interface';
 
-//  服务 
-// 提供者
 @Injectable()
-export class CatService {
-  getCat(): string {
-    return 'Hello World!aaaa';
+export class CatsService {
+  private readonly cats: Cat[] = [];
+
+  create(cat: Cat) {
+    this.cats.push(cat);
   }
-  create(): string {
-      return 'asaaaa'
+
+  findAll(): Cat[] {
+    return this.cats;
   }
 }

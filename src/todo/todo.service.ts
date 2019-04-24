@@ -7,11 +7,8 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class TodoService {
     // 注入相关数据库
-    constructor(
-        @InjectRepository(TodoEntity)
-        private readonly todoEntity: Repository<TodoEntity>,
-    ) { }
-
+    // @InjectRepository(TodoEntity)
+    private readonly todoEntity: Repository<TodoEntity>
 
     root(): string {
         return 'Hello World!';

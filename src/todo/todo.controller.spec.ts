@@ -1,18 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TodoController } from './todo.controller';
+import { TodoService } from './todo.service';
 
 describe('Todo Controller', () => {
-  let controller: TodoController;
+  let catsController: TodoController;
+  let catsService: TodoService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       controllers: [TodoController],
+      providers: [TodoService],
     }).compile();
 
-    controller = module.get<TodoController>(TodoController);
+    catsService = module.get<TodoService>(TodoService);
+    catsController = module.get<TodoController>(TodoController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('findAll', () => {
+    it('should return an array of cats', async () => {
+      // jest.spyOn(catsService, 'root').mockImplementation(() => 'aaa');
+
+      expect(catsController.getTodo()).toBeDefined;
+    });
   });
 });
