@@ -1,13 +1,11 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Inject } from '@nestjs/common';
 import { CatService } from './cats.service';
 // controller 处理接口发送请求之类的
 // 会使用到很多装饰器
 
 @Controller('cats')
 export class CatsController {
-    constructor(
-        private readonly catService: CatService
-    ){}
+    constructor(private readonly catService: CatService) {}
     // getCat() 方法前的 @Get() 修饰符告诉 Nest 创建此路由路径的端点，并将每个相应的请求映射到此处理程序。
     // 由于我们为每个路由（cats）声明了前缀，所以 Nest 会在这里映射每个 /cats 的 GET 请求
     @Get()

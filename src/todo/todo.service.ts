@@ -12,6 +12,10 @@ export class TodoService {
         private readonly todoEntity: Repository<TodoEntity>,
     ) { }
 
+
+    root(): string {
+        return 'Hello World!';
+    }
     // 查全部
     async getTodo(): Promise<todo[]> {
         return await this.todoEntity.find();

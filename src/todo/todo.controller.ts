@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Delete, Param, forwardRef, Inject } from '@nestjs/common';
 // 异常处理相关
 import { HttpException, HttpStatus, UseFilters } from '@nestjs/common';
 // 管道相关
@@ -11,16 +11,23 @@ import { todo } from './todo.dto';
 import fs = require('fs');
 import path = require('path');
 
-@Controller('todo')
+// @Controller('todo')
 // Exception1、作用于当前控制器路由的所有响应结果
 // @UseFilters(HttpExceptionFilter)
 // Pipe3、在@UsePipes()装饰器里面使用，作用当前控制器路由所有的请求参数
 // @UsePipes(ValidationPipe)
 export class TodoController {
     // 初始化服务
-    constructor(
+    constructor( 
+        @Inject(forwardRef(()=>TodoService))
         private readonly todoService: TodoService
-    ){}
+    ){ }
+
+    @Get()
+    root() {
+        return this.todoService.root();
+    }
+
     // 查全部
     @Get()
     // Exception2、作用于当前路由的响应结果

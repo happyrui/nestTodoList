@@ -9,6 +9,5 @@ import { t_todo } from './todo.entity'
     imports: [TypeOrmModule.forFeature([t_todo])],
     controllers: [TodoController],
     providers: [TodoService]
-    // exports: [TodoService]
 })
 export class TodoModule {}

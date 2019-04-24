@@ -7,8 +7,8 @@ import { CatService } from './cats.service';
 // @Global()
 // @Global 装饰器使模块成为全局作用域。 全局模块应该只注册一次，最好由根或核心模块注册。 之后，CatsService 组件将无处不在，但 CatsModule 不会被导入。
 @Module({
+    imports:[],
     controllers: [CatsController],
-    providers: [CatService],
-    exports: [CatService]
+    providers: [CatService]
 })
 export class CatsModule {}
