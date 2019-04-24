@@ -11,7 +11,7 @@ import { todo } from './todo.dto';
 import fs = require('fs');
 import path = require('path');
 
-// @Controller('todo')
+@Controller('todo')
 // Exception1、作用于当前控制器路由的所有响应结果
 // @UseFilters(HttpExceptionFilter)
 // Pipe3、在@UsePipes()装饰器里面使用，作用当前控制器路由所有的请求参数
