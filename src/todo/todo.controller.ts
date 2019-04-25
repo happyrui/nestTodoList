@@ -23,10 +23,10 @@ export class TodoController {
         private readonly todoService: TodoService
     ){ }
 
-    @Get()
-    root() {
-        return this.todoService.root();
-    }
+    // @Get()
+    // root() {
+    //     return this.todoService.root();
+    // }
 
     // 查全部
     @Get()

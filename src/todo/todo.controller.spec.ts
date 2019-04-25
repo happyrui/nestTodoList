@@ -16,11 +16,11 @@ describe('Todo Controller', () => {
     catsController = module.get<TodoController>(TodoController);
   });
 
-  describe('findAll', () => {
-    it('should return an array of cats', async () => {
-      // jest.spyOn(catsService, 'root').mockImplementation(() => 'aaa');
+  it('should return an array of cats', async () => {
+    // jest.spyOn(catsService, 'root').mockImplementation(() => 'aaa');
+    const data = await catsController.getTodo;
+    console.log(data);  
 
-      expect(catsController.getTodo()).toBeDefined;
-    });
+    expect(data).toBeDefined;
   });
 });

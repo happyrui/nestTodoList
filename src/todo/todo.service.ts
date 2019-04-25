@@ -7,12 +7,15 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class TodoService {
     // 注入相关数据库
-    // @InjectRepository(TodoEntity)
+    // constructor(
+    //     @InjectRepository(TodoEntity)
+    //     private readonly todoEntity: Repository<TodoEntity>
+    // ){ }
     private readonly todoEntity: Repository<TodoEntity>
 
-    root(): string {
-        return 'Hello World!';
-    }
+    // root(): string {
+    //     return 'Hello World!';
+    // }
     // 查全部
     async getTodo(): Promise<todo[]> {
         return await this.todoEntity.find();
