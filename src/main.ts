@@ -8,7 +8,7 @@ async function bootstrap() {
   // 过滤器 在全局注册使用内置实例方法useGlobalFilters，作用整个项目
   app.useGlobalFilters(new HttpExceptionFilter());
   // 管道
-  app.useGlobalPipes(new ValidatePipe());
+  // app.useGlobalPipes(new ValidatePipe());
   await app.listen(3000);
 }
 bootstrap();

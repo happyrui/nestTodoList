@@ -14,7 +14,7 @@ export class TodoService {
 
     // 查全部
     async getTodo(): Promise<todo[]> {
-        return await this.todoEntity.find();
+        return await this.todoEntity.find({is_del:0});
     }
     // 查一个
     async findOne(id: number): Promise<todo> {
@@ -31,15 +31,15 @@ export class TodoService {
     /**
      * 真删除
      */
-    async delete(id:number) {
-        return await this.todoEntity.delete(id);
-    }
+    // async delete(id:number) {
+    //     return await this.todoEntity.delete(id);
+    // }
     /**
      * 假删除
      */
-    // async delete(id:number) {
-    //     await this.todoEntity.update(id, {is_del:1})
-    // }
+    async delete(id:number) {
+        return await this.todoEntity.update(id, {is_del:1})
+    }
 
     //改
     // async update(todo:todo): Promise<todo> {

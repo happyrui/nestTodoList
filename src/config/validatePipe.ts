@@ -12,7 +12,7 @@ export class ValidatePipe implements PipeTransform<any> {
       const object = plainToClass(metatype, value);
       const errors = await validate(object);
       if (errors.length > 0) {
-          throw new BadRequestException('Validation failed');
+          throw new BadRequestException('类型校验错误');
       }
       return value;
     }

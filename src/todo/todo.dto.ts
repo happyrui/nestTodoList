@@ -11,7 +11,7 @@
 //     details?: string
 //     is_finished?: number
 //     is_del?: number
-//     id?: number
+//     id: number
 // }
 
 

@@ -38,7 +38,12 @@ export class TodoController {
     // 改
     @Post('update')
     update(@Body() todo:todo) {
-        return this.todoService.update(todo)
+        // 基本异常类
+        if(!todo.summary){
+            throw new HttpException({ message: '概述必填', statusCode: 403 }, HttpStatus.FORBIDDEN)
+        } else {
+            return this.todoService.update(todo)
+        }
     }
 
     // 删
@@ -52,7 +57,8 @@ export class TodoController {
     // Pipe2、在@UsePipes()装饰器里面使用，作用当前这条路由所有的请求参数
     // @UsePipes(ValidationPipe)
     // Pipe1、直接@Body()装饰器里面使用，只作用当前body这个参数
-    create(@Body(ValidatePipe) todo: todo): Promise<todo> {
+    create(@Body() todo: todo): Promise<todo> {
+    // create(@Body(ValidationPipe) todo: todo): Promise<todo> {
         // 基本异常类
         // if(!todo.summary){
         //     throw new HttpException({ message: '概述必填', statusCode: 403 }, HttpStatus.FORBIDDEN)
@@ -61,12 +67,12 @@ export class TodoController {
         // }
 
         // Exception3、使用全局异常处理
-        // if(!todo.summary){
-        //     // 对HttpException 进行自定义封装
-        //     throw new ValidateException('summary')
-        // } else {
-        //     return this.todoService.create(todo)
-        // }
+        if(!todo.summary){
+            // 对HttpException 进行自定义封装
+            throw new ValidateException('summary')
+        } else {
+            return this.todoService.create(todo)
+        }
         return this.todoService.create(todo)
     }
     // Pipe4、在全局注册使用内置实例方法useGlobalPipes，作用整个项目
@@ -80,7 +86,10 @@ export class TodoController {
 
     // 上传文件
     @Post('upload')
+    // 设置拦截器
+    // FileInterceptor () 与处理程序绑定在一起
     @UseInterceptors(FileInterceptor('file'))
+    // UploadedFile 装饰器 从 request 中取出 file
     upload(@UploadedFile() file) {
         console.log(file);
         const storePath = path.join(__dirname, '../../files');
